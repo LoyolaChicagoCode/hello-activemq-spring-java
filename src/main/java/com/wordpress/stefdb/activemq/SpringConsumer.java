@@ -76,11 +76,6 @@ public class SpringConsumer implements MessageListener {
 		try {
 			// do something funky with the text message
 			System.out.println("Got the message!");
-			System.out.println("Message properties:");
-			for (final Enumeration<String> e = message.getPropertyNames(); e.hasMoreElements(); ) {
-				final String name = e.nextElement();
-				System.out.println("  " + name + ": " + message.getObjectProperty(name));
-			}
 			if (message instanceof TextMessage) {
 				System.out.println("It's a text message: " + ((TextMessage) message).getText());
 			}
