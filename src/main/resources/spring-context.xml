@@ -1,0 +1,38 @@
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:amq="http://activemq.apache.org/schema/core" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.0.xsd
+ http://activemq.apache.org/schema/core http://activemq.apache.org/schema/core/activemq-core-5.2.0.xsd">
+
+	<amq:broker useJmx="false" persistent="false">
+		<amq:transportConnectors>
+			<amq:transportConnector uri="tcp://localhost:0" />
+		</amq:transportConnectors>
+	</amq:broker>
+
+	<amq:queue id="destination" physicalName="embedded" />
+
+	<amq:connectionFactory id="jmsFactory" brokerURL="vm://localhost" />
+
+	<bean id="producerJmsTemplate" class="org.springframework.jms.core.JmsTemplate">
+		<property name="connectionFactory">
+			<bean class="org.springframework.jms.connection.SingleConnectionFactory">
+				<property name="targetConnectionFactory" ref="jmsFactory" />
+			</bean>
+		</property>
+	</bean>
+
+	<bean id="consumerJmsTemplate" class="org.springframework.jms.core.JmsTemplate">
+		<property name="connectionFactory" ref="jmsFactory" />
+	</bean>
+
+	<bean id="producer" class="com.wordpress.stefdb.activemq.SpringProducer">
+		<property name="template" ref="producerJmsTemplate" />
+		<property name="destination" ref="destination" />
+	</bean>
+
+	<bean id="consumer" class="com.wordpress.stefdb.activemq.SpringConsumer">
+		<property name="template" ref="consumerJmsTemplate" />
+		<property name="destination" ref="destination" />
+	</bean>
+
+</beans>
