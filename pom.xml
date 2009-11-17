@@ -15,13 +15,6 @@
 			</plugin>
 		</plugins>
 	</build>
-	<repositories>
-		<repository>
-			<id>codehaus</id>
-			<name>Codehaus Maven Repository</name>
-			<url>http://repository.codehaus.org/</url>
-		</repository>
-	</repositories>
 	<dependencies>
 		<dependency>
 			<groupId>org.springframework</groupId>
