@@ -20,4 +20,4 @@ To install dependencies:
 
 To run:
 
-mvn exec:java -Dexec.mainClass="com.wordpress.stefdb.activemq.Main"
+mvn exec:java -Dexec.mainClass=com.wordpress.stefdb.activemq.Main
